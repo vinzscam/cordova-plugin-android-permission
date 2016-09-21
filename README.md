@@ -26,6 +26,8 @@ var permissions = cordova.plugins.permissions;
 permissions.hasPermission(permission, successCallback, errorCallback);
 permissions.requestPermission(permission, successCallback, errorCallback);
 permissions.requestPermissions(permissions, successCallback, errorCallback);
+permissions.checkAndGetPermission(permission);   //return a Promise
+permissions.checkAndGetPermissions(permissions); //return a Promise
 ```
 
 #### Deprecated API - still work now, will not support in the future.
@@ -68,6 +70,20 @@ function checkPermissionCallback(status) {
       errorCallback);
   }
 }
+```
+
+or you can use this API to perform the same actions of the snippet above:
+
+```javascript
+var permissions = cordova.plugins.permissions;
+permissions.checkAndGetPermissions([permissions.CAMERA, permissions.READ_CONTACTS])
+.then(() => {
+	//permissions are granted
+})
+.catch(error => {
+	//some permissions are not granted
+	console.log(error);
+});
 ```
 
 License
